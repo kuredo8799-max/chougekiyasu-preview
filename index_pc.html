@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超激安.com — PC版プレビュー</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      color: #222;
+      background: #f0f0f0;
+      min-width: 900px;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ==============================
+       ページ全体の幅制限
+    ============================== */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    /* ==============================
+       1. ヘッダー
+    ============================== */
+    .header {
+      width: 100%;
+      background: linear-gradient(90deg, #0a2a6e 0%, #1565c0 28%, #1a1a2e 50%, #7f1010 72%, #c0390b 100%);
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100px;
+    }
+    .header-left { font-size: 12px; color: #7ec8f8; line-height: 1.8; }
+    .header-left strong { color: #ff5555; display: block; font-size: 13px; }
+    .header-center { text-align: center; }
+    .header-logo { font-size: 36px; font-weight: 900; color: #ff6688; text-shadow: 0 0 16px rgba(255,100,130,0.6); letter-spacing: 0.02em; }
+    .header-sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+    .header-right { font-size: 12px; color: #ffe0b0; text-align: right; line-height: 1.8; }
+    .header-right strong { color: #ffee00; font-size: 16px; display: block; }
+
+    /* ==============================
+       2. ナビ帯（検索・ログイン・カート）
+    ============================== */
+    .nav-bar {
+      background: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 8px 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .nav-btn {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px 18px;
+      font-size: 13px;
+      color: #444;
+      cursor: pointer;
+    }
+    .nav-btn.red {
+      background: #e53935;
+      color: #fff;
+      border-color: #e53935;
+      font-weight: 700;
+    }
+    .nav-search {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    /* ==============================
+       3. お知らせアコーディオン
+    ============================== */
+    .notice-wrap { background: #fff8f8; border-bottom: 2px solid #ffd0d0; }
+    .notice-trigger {
+      width: 100%;
+      background: #fff8f8;
+      border: none;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 700;
+      color: #c62828;
+      cursor: pointer;
+    }
+    .notice-trigger .arrow { font-size: 12px; transition: transform 0.25s; display: inline-block; }
+    .notice-trigger.is-open .arrow { transform: rotate(180deg); }
+    .notice-body { display: none; padding: 10px 20px 14px; background: #fff8f8; }
+    .notice-body.is-open { display: flex; gap: 30px; }
+    .notice-list { list-style: none; flex: 1; }
+    .notice-list li { padding: 5px 0; border-bottom: 1px dashed #eee; font-size: 13px; color: #444; }
+    .notice-list li:last-child { border-bottom: none; }
+    .notice-list a { color: #1565c0; }
+    .notice-more { display: block; text-align: right; font-size: 12px; color: #1565c0; padding-top: 8px; }
+
+    /* ==============================
+       4. 2カラムレイアウト
+    ============================== */
+    .body-wrap { display: flex; align-items: flex-start; }
+
+    /* ==============================
+       サイドバー（220px固定）
+    ============================== */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      border-right: 1px solid #e0e0e0;
+      background: #fafafa;
+      padding: 12px 8px;
+    }
+    .sb-section { margin-bottom: 12px; }
+    .sb-title {
+      background: #e53935;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 3px 3px 0 0;
+    }
+    .sb-body {
+      border: 1px solid #e0e0e0;
+      border-top: none;
+      background: #fff;
+      border-radius: 0 0 3px 3px;
+      overflow: hidden;
+    }
+
+    /* バナー縦一列 */
+    .sb-banners { padding: 6px 7px; display: flex; flex-direction: column; gap: 5px; }
+    .sb-banner {
+      width: 100%;
+      aspect-ratio: 2/1;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .sb-banner:hover { opacity: 0.9; }
+    .sb-banner-text {}
+    .sb-banner-title { font-size: 11px; font-weight: 900; color: #fff; line-height: 1.3; }
+    .sb-banner-sub { font-size: 8px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+    .sb-banner-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* カテゴリリスト */
+    .sb-cat-list { list-style: none; }
+    .sb-cat-list li a {
+      display: block;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.1s;
+    }
+    .sb-cat-list li a:hover { background: #f5f5f5; color: #e53935; }
+    .sb-cat-more {
+      display: block;
+      font-size: 11px;
+      color: #e53935;
+      padding: 5px 10px;
+      text-align: center;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    /* 新着情報 */
+    .sb-news-list { list-style: none; }
+    .sb-news-list li {
+      padding: 5px 10px;
+      font-size: 11px;
+      color: #555;
+      border-bottom: 1px solid #f0f0f0;
+      line-height: 1.5;
+    }
+    .sb-news-list li:last-child { border-bottom: none; }
+    .sb-news-list a { color: #1565c0; }
+
+    /* SNSバナー */
+    .sb-sns { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+    .sb-sns-btn {
+      display: block;
+      padding: 5px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* ==============================
+       メインカラム
+    ============================== */
+    .main { flex: 1; min-width: 0; padding: 14px 16px; }
+    .main-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+      border-left: 4px solid #e53935;
+      padding-left: 10px;
+      margin-bottom: 12px;
+    }
+    .main-title span { font-size: 12px; font-weight: 400; color: #999; margin-left: 8px; }
+
+    /* 新着商品グリッド4列 */
+    .product-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 12px; }
+    .product-item { border: 1px solid #eee; border-radius: 6px; overflow: hidden; background: #fff; transition: box-shadow 0.15s; }
+    .product-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .product-img { width: 100%; aspect-ratio: 1; background: #f5f5f5; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #bbb; }
+    .product-name { font-size: 11px; color: #666; padding: 5px 7px 3px; line-height: 1.4; }
+    .product-price { font-size: 15px; font-weight: 700; color: #e53935; padding: 0 7px 7px; }
+
+    .more-btn {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: #e53935;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .more-btn:hover { background: #c62828; }
+
+    /* 画像エリア */
+    .image-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    .image-section img { width: 100%; border-radius: 6px; }
+    .image-section a img:hover { opacity: 0.95; }
+
+    /* ご案内グリッド */
+    .guide-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .guide-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      background: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-left: 4px solid #1565c0;
+      border-radius: 5px;
+      font-size: 12px;
+      color: #0d47a1;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.5;
+      min-height: 56px;
+      transition: background 0.1s;
+    }
+    .guide-item:hover { background: #bbdefb; }
+
+    /* ==============================
+       5. フッター
+    ============================== */
+    .footer { background: #333; padding: 16px 20px 12px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(6,1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .footer-item a {
+      display: block;
+      font-size: 11px;
+      color: #bbb;
+      padding: 6px 4px;
+      border: 1px solid #555;
+      border-radius: 3px;
+      text-align: center;
+      line-height: 1.4;
+      transition: background 0.1s;
+    }
+    .footer-item a:hover { background: #444; color: #fff; }
+    .footer-copy {
+      font-size: 11px;
+      color: #777;
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px solid #555;
+    }
+
+    /* プレビューバッジ */
+    .preview-badge {
+      position: fixed;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      z-index: 999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- 1. ヘッダー -->
+  <header class="header">
+    <div class="header-left">
+      テレビでおなじみ<br>
+      ブランド衣料現金問屋<br>
+      <strong>土橋商店公式サイト</strong>
+    </div>
+    <div class="header-center">
+      <div class="header-logo">超激安.COM</div>
+      <div class="header-sub">BtoB卸・業務用衣料</div>
+    </div>
+    <div class="header-right">
+      <strong>気絶安</strong>
+      安さのその先<br>
+      あなたをお連れします
+    </div>
+  </header>
+
+  <!-- 2. ナビ帯 -->
+  <div class="nav-bar">
+    <div class="nav-btn">ログイン</div>
+    <div class="nav-search">商品を検索…</div>
+    <div class="nav-btn">検索</div>
+    <div class="nav-btn red">🛒 カート</div>
+  </div>
+
+  <!-- 3. お知らせ -->
+  <div class="notice-wrap">
+    <button class="notice-trigger" id="noticeBtn" aria-expanded="false">
+      📢 大切なお知らせ
+      <span class="arrow">▼</span>
+    </button>
+    <div class="notice-body" id="noticeBody">
+      <ul class="notice-list">
+        <li><a href="#">2025/07/01 夏物セール開催中！最大70%OFF</a></li>
+        <li><a href="#">2025/06/28 配送遅延のお知らせ</a></li>
+        <li><a href="#">2025/06/20 新商品入荷：インドエスニック雑貨</a></li>
+        <li><a href="#">2025/06/15 メールマガジン登録でクーポン配布中</a></li>
+        <li><a href="#">2025/06/10 テレビ出演情報のお知らせ</a></li>
+      </ul>
+      <a href="#" class="notice-more">もっと見る ›</a>
+    </div>
+  </div>
+
+  <!-- 4. 2カラム -->
+  <div class="body-wrap">
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+
+      <!-- 特集バナー4枚 -->
+      <div class="sb-section">
+        <div class="sb-title">特集</div>
+        <div class="sb-body">
+          <div class="sb-banners">
+            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#1a237e,#3949ab);">
+              <div class="sb-banner-text">
+                <div class="sb-banner-title">〚服箱〛</div>
+                <div class="sb-banner-sub">土橋商店名物</div>
+              </div>
+              <div class="sb-banner-icon">📦</div>
+            </a>
+            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#7f1010,#c0390b);">
+              <div class="sb-banner-text">
+                <div class="sb-banner-title">社長イチオシ！</div>
+                <div class="sb-banner-sub">自信を持って推薦</div>
+              </div>
+              <div class="sb-banner-icon">👍</div>
+            </a>
+            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#e65100,#ff6d00);">
+              <div class="sb-banner-text">
+                <div class="sb-banner-title">在庫処分！</div>
+                <div class="sb-banner-sub">激安価格で放出中</div>
+              </div>
+              <div class="sb-banner-icon">🔥</div>
+            </a>
+            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#880e4f,#e91e63);">
+              <div class="sb-banner-text">
+                <div class="sb-banner-title" style="font-size:10px;">超目玉！<br>出会えたら即買い！</div>
+              </div>
+              <div class="sb-banner-icon">⚡</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- カテゴリ一覧 -->
+      <div class="sb-section">
+        <div class="sb-title">カテゴリ</div>
+        <div class="sb-body">
+          <ul class="sb-cat-list">
+            <li><a href="#">Used</a></li>
+            <li><a href="#">メンズ</a></li>
+            <li><a href="#">レディス</a></li>
+            <li><a href="#">キッズ</a></li>
+            <li><a href="#">男女兼用</a></li>
+            <li><a href="#">肌着</a></li>
+            <li><a href="#">靴下</a></li>
+            <li><a href="#">靴・サンダル</a></li>
+            <li><a href="#">インドエスニック</a></li>
+            <li><a href="#">服飾雑貨</a></li>
+            <li><a href="#">雑貨</a></li>
+            <li><a href="#">雨具</a></li>
+            <li><a href="#">水着</a></li>
+            <li><a href="#">レジャー・アウトドア</a></li>
+            <li><a href="#">バッグ・カバン</a></li>
+            <li><a href="#">寝具・タオル</a></li>
+            <li><a href="#">玩具・遊具</a></li>
+            <li><a href="#">防災・防犯</a></li>
+            <li><a href="#">熱中症対策</a></li>
+            <li><a href="#">衛生・感染対策</a></li>
+            <li><a href="#">キッチン用品</a></li>
+            <li><a href="#">家電用品</a></li>
+            <li><a href="#">カー用品</a></li>
+            <li><a href="#">スポーツ用品</a></li>
+            <li><a href="#">ペット用品</a></li>
+            <li><a href="#">飲料・食品</a></li>
+            <li><a href="#">ブランド品</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 新着情報 -->
+      <div class="sb-section">
+        <div class="sb-title">新着情報</div>
+        <div class="sb-body">
+          <ul class="sb-news-list">
+            <li><a href="#">夏物セール開催中！最大70%OFF</a></li>
+            <li><a href="#">配送遅延のお知らせ</a></li>
+            <li><a href="#">新商品入荷：インドエスニック雑貨</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SNS・ブログ -->
+      <div class="sb-section">
+        <div class="sb-title">SNS・ブログ</div>
+        <div class="sb-body">
+          <div class="sb-sns">
+            <a href="#" class="sb-sns-btn" style="background:#3b5998;">Facebook</a>
+            <a href="#" class="sb-sns-btn" style="background:#ff6600;">ブログ</a>
+            <a href="#" class="sb-sns-btn" style="background:#00b900;">LINE</a>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- メインカラム -->
+    <main class="main">
+
+      <!-- 新着商品 4列×6行 -->
+      <div class="main-title">新着商品 <span>4列×6行・24個</span></div>
+      <div class="product-grid">
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズTシャツ 半袖</div><div class="product-price">¥980</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスパンツ</div><div class="product-price">¥1,280</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズ靴下 3足セット</div><div class="product-price">¥380</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">エコバッグ 大容量</div><div class="product-price">¥580</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズパーカー</div><div class="product-price">¥1,580</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスブラウス</div><div class="product-price">¥780</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズスニーカー</div><div class="product-price">¥1,080</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用スウェット</div><div class="product-price">¥980</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">肌着セット 3枚組</div><div class="product-price">¥480</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インド綿スカーフ</div><div class="product-price">¥680</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズジャケット</div><div class="product-price">¥2,980</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスニット</div><div class="product-price">¥1,480</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズTシャツ</div><div class="product-price">¥480</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">スポーツソックス</div><div class="product-price">¥280</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ウォータープルーフ傘</div><div class="product-price">¥980</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズサンダル</div><div class="product-price">¥780</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスワンピース</div><div class="product-price">¥1,980</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キャンプ用品セット</div><div class="product-price">¥3,480</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ペットフード 大容量</div><div class="product-price">¥1,280</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッチンタオル 5枚組</div><div class="product-price">¥380</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用帽子</div><div class="product-price">¥680</div></div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディス水着</div><div class="product-price">¥1,280</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズ肌着 3枚組</div><div class="product-price">¥680</div></a>
+        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インドエスニックバッグ</div><div class="product-price">¥1,580</div></a>
+      </div>
+      <a href="#" class="more-btn">すべての商品はこちら →</a>
+
+      <!-- 画像3枚エリア -->
+      <div class="image-section">
+        <a href="https://www.amazon.co.jp/dp/4814925360" target="_blank" rel="noopener">
+          <img src="jyosho.jpg" alt="情熱の言葉 Amazonで好評発売中">
+        </a>
+        <img src="rinen1.png" alt="土橋商店の企業理念">
+        <img src="rinen2.png" alt="土橋商店の企業理念 マンガ版">
+      </div>
+
+      <!-- ご案内 -->
+      <div class="main-title">ご案内</div>
+      <div class="guide-grid">
+        <a href="#" class="guide-item">ご利用案内</a>
+        <a href="#" class="guide-item">お問い合わせ</a>
+        <a href="#" class="guide-item">よくある Q&amp;A</a>
+        <a href="#" class="guide-item">テレビ出演情報</a>
+        <a href="#" class="guide-item">銀行振込でのご注文</a>
+        <a href="#" class="guide-item">メルマガ配信停止</a>
+        <a href="#" class="guide-item">求人採用</a>
+        <a href="#" class="guide-item">企業理念</a>
+        <a href="#" class="guide-item">土橋社長の素顔</a>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- 5. フッター -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-item"><a href="#">会社概要</a></div>
+      <div class="footer-item"><a href="#">利用規約</a></div>
+      <div class="footer-item"><a href="#">ご利用案内</a></div>
+      <div class="footer-item"><a href="#">特定商取引法に基づく表記</a></div>
+      <div class="footer-item"><a href="#">個人情報の取り扱いについて</a></div>
+      <div class="footer-item"><a href="#">お問い合わせ</a></div>
+    </div>
+    <p class="footer-copy">&copy; 2025 超激安.com All Rights Reserved.</p>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<div class="preview-badge">🖥️ PC版プレビュー</div>
+
+<script>
+  // お知らせアコーディオン
+  (function () {
+    var btn = document.getElementById('noticeBtn');
+    var body = document.getElementById('noticeBody');
+    btn.addEventListener('click', function () {
+      var isOpen = body.classList.toggle('is-open');
+      btn.classList.toggle('is-open', isOpen);
+      btn.setAttribute('aria-expanded', isOpen);
+    });
+  })();
+</script>
+
+</body>
+</html>
