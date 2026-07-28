@@ -3,24 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>超激安.com — PC版プレビュー</title>
+  <title>超激安.com</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-      color: #222; background: #f0f0f0; min-width: 900px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; color: #222; background: #f0f0f0; min-width: 900px; }
     img { max-width: 100%; height: auto; display: block; }
     a { text-decoration: none; color: inherit; }
-
     .page-wrap { max-width: 1100px; margin: 0 auto; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
 
     /* 1. ヘッダー */
-    .header {
-      width: 100%;
-      background: linear-gradient(90deg,#0a2a6e 0%,#1565c0 28%,#1a1a2e 50%,#7f1010 72%,#c0390b 100%);
-      padding: 14px 30px; display: flex; align-items: center; justify-content: space-between; min-height: 100px;
-    }
+    .header { width: 100%; background: linear-gradient(90deg,#0a2a6e 0%,#1565c0 28%,#1a1a2e 50%,#7f1010 72%,#c0390b 100%); padding: 14px 30px; display: flex; align-items: center; justify-content: space-between; min-height: 100px; }
     .header-left { font-size: 12px; color: #7ec8f8; line-height: 1.8; }
     .header-left strong { color: #ff5555; display: block; font-size: 13px; }
     .header-center { text-align: center; }
@@ -37,11 +29,7 @@
 
     /* 3. お知らせ */
     .notice-wrap { background: #fff8f8; border-bottom: 2px solid #ffd0d0; }
-    .notice-trigger {
-      width: 100%; background: #fff8f8; border: none; padding: 10px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 14px; font-weight: 700; color: #c62828; cursor: pointer;
-    }
+    .notice-trigger { width: 100%; background: #fff8f8; border: none; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 700; color: #c62828; cursor: pointer; }
     .notice-trigger .arrow { font-size: 12px; transition: transform 0.25s; display: inline-block; }
     .notice-trigger.is-open .arrow { transform: rotate(180deg); }
     .notice-body { display: none; padding: 10px 20px 14px; background: #fff8f8; }
@@ -63,11 +51,7 @@
 
     /* バナー縦一列 */
     .sb-banners { padding: 6px 7px; display: flex; flex-direction: column; gap: 5px; }
-    .sb-banner {
-      width: 100%; aspect-ratio: 2/1; border-radius: 4px; overflow: hidden;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 10px; cursor: pointer; transition: opacity 0.15s;
-    }
+    .sb-banner { width: 100%; aspect-ratio: 2/1; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: pointer; transition: opacity 0.15s; }
     .sb-banner:hover { opacity: 0.9; }
     .sb-banner-title { font-size: 11px; font-weight: 900; color: #fff; line-height: 1.3; }
     .sb-banner-sub { font-size: 8px; color: rgba(255,255,255,0.75); margin-top: 2px; }
@@ -77,120 +61,81 @@
     .sb-cat-list { list-style: none; }
     .sb-cat-item { border-bottom: 1px solid #f0f0f0; }
     .sb-cat-item:last-child { border-bottom: none; }
-
-    /* 親カテゴリ行 */
-    .sb-cat-trigger {
-      width: 100%; background: none; border: none; padding: 7px 10px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 12px; color: #333; cursor: pointer; text-align: left;
-      transition: background 0.1s;
-    }
+    .sb-cat-trigger { width: 100%; background: none; border: none; padding: 7px 10px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: #333; cursor: pointer; text-align: left; transition: background 0.1s; }
     .sb-cat-trigger:hover { background: #f5f5f5; color: #e53935; }
     .sb-cat-trigger.has-sub { font-weight: 500; }
-    .sb-cat-trigger .sub-arrow {
-      font-size: 9px; color: #aaa; transition: transform 0.2s; display: inline-block; flex-shrink: 0;
-    }
+    .sb-cat-trigger .sub-arrow { font-size: 9px; color: #aaa; transition: transform 0.2s; display: inline-block; flex-shrink: 0; }
     .sb-cat-trigger.is-open .sub-arrow { transform: rotate(180deg); }
     .sb-cat-trigger.is-open { color: #e53935; background: #fff5f5; }
-
-    /* 子カテゴリエリア */
     .sb-sub-list { display: none; list-style: none; background: #fafafa; border-top: 1px solid #f0f0f0; }
     .sb-sub-list.is-open { display: block; }
-    .sb-sub-list li a {
-      display: block; padding: 5px 10px 5px 20px; font-size: 11px; color: #555;
-      border-bottom: 1px solid #f5f5f5; transition: background 0.1s;
-    }
+    .sb-sub-list li a { display: block; padding: 5px 10px 5px 20px; font-size: 11px; color: #555; border-bottom: 1px solid #f5f5f5; transition: background 0.1s; }
     .sb-sub-list li:last-child a { border-bottom: none; }
     .sb-sub-list li a:hover { background: #fff3e0; color: #e53935; }
     .sb-sub-list li a::before { content: "└ "; font-size: 10px; color: #ccc; }
 
-    /* 新着情報 */
+    /* 新着情報・SNS */
     .sb-news-list { list-style: none; }
     .sb-news-list li { padding: 5px 10px; font-size: 11px; color: #555; border-bottom: 1px solid #f0f0f0; line-height: 1.5; }
     .sb-news-list li:last-child { border-bottom: none; }
     .sb-news-list a { color: #1565c0; }
-
-    /* SNS */
-    .sb-sns { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
-    .sb-sns-btn { display: block; padding: 5px 8px; border-radius: 3px; font-size: 11px; color: #fff; font-weight: 700; text-align: center; }
+    .sb-sns { padding: 6px 7px; display: flex; flex-direction: column; gap: 5px; }
+    .sb-sns img { width: 100%; border-radius: 4px; }
 
     /* メインカラム */
     .main { flex: 1; min-width: 0; padding: 14px 16px; }
     .main-title { font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #e53935; padding-left: 10px; margin-bottom: 12px; }
     .main-title span { font-size: 12px; font-weight: 400; color: #999; margin-left: 8px; }
-
-    /* 新着商品グリッド */
     .product-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 12px; }
     .product-item { border: 1px solid #eee; border-radius: 6px; overflow: hidden; background: #fff; transition: box-shadow 0.15s; }
     .product-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .product-img { width: 100%; aspect-ratio: 1; background: #f5f5f5; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #bbb; }
     .product-name { font-size: 11px; color: #666; padding: 5px 7px 3px; line-height: 1.4; }
     .product-price { font-size: 15px; font-weight: 700; color: #e53935; padding: 0 7px 7px; }
-
-    .more-btn {
-      display: block; width: 100%; padding: 11px; background: #e53935; color: #fff;
-      font-size: 14px; font-weight: 700; text-align: center; border-radius: 5px;
-      margin-bottom: 20px; cursor: pointer; transition: background 0.15s;
-    }
+    .more-btn { display: block; width: 100%; padding: 11px; background: #e53935; color: #fff; font-size: 14px; font-weight: 700; text-align: center; border-radius: 5px; margin-bottom: 20px; cursor: pointer; transition: background 0.15s; }
     .more-btn:hover { background: #c62828; }
-
-    /* 画像エリア */
     .image-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
     .image-section img { width: 100%; border-radius: 6px; }
-
-    /* ご案内 */
     .guide-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-    .guide-item {
-      display: flex; align-items: center; justify-content: center;
-      padding: 14px 8px; background: #e3f2fd; border: 1px solid #90caf9;
-      border-left: 4px solid #1565c0; border-radius: 5px; font-size: 12px;
-      color: #0d47a1; font-weight: 600; text-align: center; line-height: 1.5; min-height: 56px;
-      transition: background 0.1s;
-    }
+    .guide-item { display: flex; align-items: center; justify-content: center; padding: 14px 8px; background: #e3f2fd; border: 1px solid #90caf9; border-left: 4px solid #1565c0; border-radius: 5px; font-size: 12px; color: #0d47a1; font-weight: 600; text-align: center; line-height: 1.5; min-height: 56px; transition: background 0.1s; }
     .guide-item:hover { background: #bbdefb; }
 
     /* フッター */
     .footer { background: #333; padding: 16px 20px 12px; }
     .footer-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 6px; margin-bottom: 10px; }
-    .footer-item a {
-      display: block; font-size: 11px; color: #bbb; padding: 6px 4px;
-      border: 1px solid #555; border-radius: 3px; text-align: center; line-height: 1.4; transition: background 0.1s;
-    }
+    .footer-item a { display: block; font-size: 11px; color: #bbb; padding: 6px 4px; border: 1px solid #555; border-radius: 3px; text-align: center; line-height: 1.4; transition: background 0.1s; }
     .footer-item a:hover { background: #444; color: #fff; }
     .footer-copy { font-size: 11px; color: #777; text-align: center; padding-top: 10px; border-top: 1px solid #555; }
 
-    .preview-badge {
-      position: fixed; bottom: 14px; right: 14px; background: rgba(0,0,0,0.75);
-      color: #fff; font-size: 11px; padding: 6px 10px; border-radius: 10px; z-index: 999; pointer-events: none;
-    }
+    /* SOLD OUT表示 */
+    .p-product-block ul.__product li.__item.__is-soldout .__photo .__soldout { display: block !important; }
+    .main.main--product-list section.__list.__list--row ul.__product li.__item.__is-soldout a table tr td.__photo .__soldout { display: block !important; }
+    .p-product-block ul.__product li.__item.__is-soldout .__photo .__soldout:after { content: 'SOLD OUT'; font-size: 1.3em; color: #fff; }
   </style>
 </head>
 <body>
 <div class="page-wrap">
 
   <!-- 1. ヘッダー -->
-  <header class="header">
-    <div class="header-left">テレビでおなじみ<br>ブランド衣料現金問屋<br><strong>土橋商店公式サイト</strong></div>
-    <div class="header-center">
-      <div class="header-logo">超激安.COM</div>
-      <div class="header-sub">BtoB卸・業務用衣料</div>
-    </div>
-    <div class="header-right"><strong>気絶安</strong>安さのその先<br>あなたをお連れします</div>
-  </header>
+  <a href="https://www.chougekiyasu.com">
+    <header class="header">
+      <div class="header-left">テレビでおなじみ<br>ブランド衣料現金問屋<br><strong>土橋商店公式サイト</strong></div>
+      <div class="header-center"><div class="header-logo">超激安.COM</div><div class="header-sub">BtoB卸・業務用衣料</div></div>
+      <div class="header-right"><strong>気絶安</strong>安さのその先<br>あなたをお連れします</div>
+    </header>
+  </a>
 
   <!-- 2. ナビ帯 -->
   <div class="nav-bar">
-    <div class="nav-btn">ログイン</div>
-    <div class="nav-search">商品を検索…</div>
-    <div class="nav-btn">検索</div>
-    <div class="nav-btn red">🛒 カート</div>
+    <a href="https://www.chougekiyasu.com/login.php" class="nav-btn">ログイン</a>
+    <input class="nav-search" placeholder="商品を検索…" onkeydown="if(event.key==='Enter'){location.href='https://www.chougekiyasu.com/list.php?keyword='+encodeURIComponent(this.value)}">
+    <button class="nav-btn" onclick="location.href='https://www.chougekiyasu.com/list.php?keyword='+encodeURIComponent(document.querySelector('.nav-search').value)">検索</button>
+    <a href="https://www.chougekiyasu.com/cart.php" class="nav-btn red">🛒 カート</a>
   </div>
 
   <!-- 3. お知らせ -->
   <div class="notice-wrap">
-    <button class="notice-trigger" id="noticeBtn" aria-expanded="false">
-      📢 大切なお知らせ <span class="arrow">▼</span>
-    </button>
+    <button class="notice-trigger" id="noticeBtn" aria-expanded="false">📢 大切なお知らせ <span class="arrow">▼</span></button>
     <div class="notice-body" id="noticeBody">
       <ul class="notice-list">
         <li><a href="#">2025/07/01 夏物セール開催中！最大70%OFF</a></li>
@@ -214,19 +159,19 @@
         <div class="sb-title">特集</div>
         <div class="sb-body">
           <div class="sb-banners">
-            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#1a237e,#3949ab);">
+            <a href="https://www.chougekiyasu.com/list.php?c_id=71" class="sb-banner" style="background:linear-gradient(135deg,#1a237e,#3949ab);">
               <div><div class="sb-banner-title">〚服箱〛</div><div class="sb-banner-sub">土橋商店名物</div></div>
               <div class="sb-banner-icon">📦</div>
             </a>
-            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#7f1010,#c0390b);">
+            <a href="https://www.chougekiyasu.com/list.php?c_id=582" class="sb-banner" style="background:linear-gradient(135deg,#7f1010,#c0390b);">
               <div><div class="sb-banner-title">社長イチオシ！</div><div class="sb-banner-sub">自信を持って推薦</div></div>
               <div class="sb-banner-icon">👍</div>
             </a>
-            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#e65100,#ff6d00);">
+            <a href="https://www.chougekiyasu.com/list.php?c_id=744" class="sb-banner" style="background:linear-gradient(135deg,#e65100,#ff6d00);">
               <div><div class="sb-banner-title">在庫処分！</div><div class="sb-banner-sub">激安価格で放出中</div></div>
               <div class="sb-banner-icon">🔥</div>
             </a>
-            <a href="#" class="sb-banner" style="background:linear-gradient(135deg,#880e4f,#e91e63);">
+            <a href="https://www.chougekiyasu.com/list.php?c_id=879" class="sb-banner" style="background:linear-gradient(135deg,#880e4f,#e91e63);">
               <div><div class="sb-banner-title" style="font-size:10px;">超目玉！<br>出会えたら即買い！</div></div>
               <div class="sb-banner-icon">⚡</div>
             </a>
@@ -234,153 +179,151 @@
         </div>
       </div>
 
-      <!-- カテゴリ（子カテゴリはアコーディオン） -->
+      <!-- カテゴリ -->
       <div class="sb-section">
         <div class="sb-title">カテゴリ</div>
         <div class="sb-body">
           <ul class="sb-cat-list">
-
-            <!-- 子カテゴリあり -->
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">Used <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">服箱</a></li>
-                <li><a href="#">古着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=688">服箱</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=811">古着</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">メンズ <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">トップス</a></li>
-                <li><a href="#">ボトムス</a></li>
-                <li><a href="#">アウター</a></li>
-                <li><a href="#">上下セット</a></li>
-                <li><a href="#">ルームウェア・パジャマ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=772">トップス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=773">ボトムス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=774">アウター</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=786">上下セット</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=843">ルームウェア・パジャマ</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">レディス <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">トップス</a></li>
-                <li><a href="#">ボトムス</a></li>
-                <li><a href="#">アウター</a></li>
-                <li><a href="#">上下セット</a></li>
-                <li><a href="#">ルームウェア・パジャマ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=777">トップス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=778">ボトムス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=779">アウター</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=789">上下セット</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=844">ルームウェア・パジャマ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=792">スカート・ワンピース</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">キッズ <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">トップス</a></li>
-                <li><a href="#">ボトムス</a></li>
-                <li><a href="#">アウター</a></li>
-                <li><a href="#">上下セット</a></li>
-                <li><a href="#">ルームウェア・パジャマ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=794">トップス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=795">ボトムス・スカート</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=796">アウター</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=797">上下セット</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=846">ルームウェア・パジャマ</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">男女兼用 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">トップス</a></li>
-                <li><a href="#">ボトムス</a></li>
-                <li><a href="#">アウター</a></li>
-                <li><a href="#">上下セット</a></li>
-                <li><a href="#">ルームウェア・パジャマ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=750">トップス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=764">ボトムス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=765">アウター</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=801">上下セット</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=801">ルームウェア・パジャマ</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">肌着 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">メンズ肌着</a></li>
-                <li><a href="#">レディス肌着</a></li>
-                <li><a href="#">キッズ肌着</a></li>
-                <li><a href="#">その他の肌着</a></li>
-                <li><a href="#">レギンス・スパッツ</a></li>
-                <li><a href="#">トリンプ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=860">メンズ肌着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=861">レディス肌着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=862">キッズ肌着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=863">その他の肌着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=850">レギンス・スパッツ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=847">トリンプ</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">靴下 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">メンズ靴下</a></li>
-                <li><a href="#">レディス靴下</a></li>
-                <li><a href="#">キッズ靴下</a></li>
-                <li><a href="#">その他の靴下</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=864">メンズ靴下</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=865">レディス靴下</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=866">キッズ靴下</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=867">その他の靴下</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">靴・サンダル <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">メンズ靴・サンダル</a></li>
-                <li><a href="#">レディス靴・サンダル</a></li>
-                <li><a href="#">キッズ靴・サンダル</a></li>
-                <li><a href="#">その他靴・サンダル</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=868">メンズ靴・サンダル</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=869">レディス靴・サンダル</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=870">キッズ靴・サンダル</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=871">その他靴・サンダル</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">服飾雑貨 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">メガネ・サングラス</a></li>
-                <li><a href="#">財布</a></li>
-                <li><a href="#">帽子</a></li>
-                <li><a href="#">ベルト</a></li>
-                <li><a href="#">腕時計</a></li>
-                <li><a href="#">秋冬服飾雑貨</a></li>
-                <li><a href="#">春夏服飾雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=803">メガネ・サングラス</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=804">財布</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=805">帽子</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=806">ベルト</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=842">腕時計</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=851">秋冬服飾雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=852">春夏服飾雑貨</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">雑貨 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">美容雑貨</a></li>
-                <li><a href="#">生活雑貨</a></li>
-                <li><a href="#">キャラクター雑貨</a></li>
-                <li><a href="#">イベント雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=757">美容雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=758">生活雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=760">キャラクター雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=760">イベント雑貨</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">雨具 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">雨傘・日傘</a></li>
-                <li><a href="#">レインコート</a></li>
-                <li><a href="#">レインブーツ</a></li>
-                <li><a href="#">その他雨具</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=798">雨傘・日傘</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=799">レインコート</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=800">レインブーツ</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=878">その他雨具</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">水着 <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">メンズ水着</a></li>
-                <li><a href="#">レディス水着</a></li>
-                <li><a href="#">キッズ水着</a></li>
-                <li><a href="#">その他水着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=872">メンズ水着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=873">レディス水着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=874">キッズ水着</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=875">その他水着</a></li>
               </ul>
             </li>
             <li class="sb-cat-item">
               <button class="sb-cat-trigger has-sub">レジャー・アウトドア <span class="sub-arrow">▼</span></button>
               <ul class="sb-sub-list">
-                <li><a href="#">アウトドア</a></li>
-                <li><a href="#">キャンプ用品</a></li>
-                <li><a href="#">マリン・プール雑貨</a></li>
-                <li><a href="#">スノー（雪遊び）</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=696">アウトドア</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=727">キャンプ用品</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=855">マリン・プール雑貨</a></li>
+                <li><a href="https://www.chougekiyasu.com/list.php?c_id=859">スノー（雪遊び）</a></li>
               </ul>
             </li>
-
-            <!-- 子カテゴリなし -->
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">インドエスニック</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">バッグ・カバン</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">寝具・タオル</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">玩具・遊具</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">防災・防犯用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">熱中症対策用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">衛生・感染対策用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">キッチン用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">家電用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">カー用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">スポーツ用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">ペット用品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">飲料・食品</button></li>
-            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='#'">ブランド品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=877'">インドエスニック</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=788'">バッグ・カバン</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=761'">寝具・タオル</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=715'">玩具・遊具</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=64'">防災・防犯用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=849'">熱中症対策用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=769'">衛生・感染対策用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=740'">キッチン用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=767'">家電用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=700'">カー用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=701'">スポーツ用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=576'">ペット用品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=689'">飲料</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=690'">食品</button></li>
+            <li class="sb-cat-item"><button class="sb-cat-trigger" onclick="location.href='https://www.chougekiyasu.com/list.php?c_id=745'">ブランド品</button></li>
           </ul>
         </div>
       </div>
@@ -397,19 +340,19 @@
         </div>
       </div>
 
-      <!-- SNS・ブログ -->
+      <!-- SNS -->
       <div class="sb-section">
         <div class="sb-title">SNS・ブログ</div>
         <div class="sb-body">
           <div class="sb-sns">
-            <a href="#" target="_blank" rel="noopener">
-              <img src="facebook_banner.png" alt="土橋達也 Facebook" style="width:100%;border-radius:4px;">
+            <a href="https://www.facebook.com/chougekiyasu/" target="_blank" rel="noopener">
+              <img src="facebook_banner.png" alt="土橋達也 Facebook">
             </a>
             <a href="http://blog.livedoor.jp/chougekiyasu/" target="_blank" rel="noopener">
-              <img src="blog_banner.png" alt="土橋商店の超激安日記！ブログ" style="width:100%;border-radius:4px;">
+              <img src="blog_banner.png" alt="土橋商店の超激安日記！ブログ">
             </a>
-            <a href="#" target="_blank" rel="noopener">
-              <img src="line_banner.png" alt="土橋商店公式LINE 登録はこちら" style="width:100%;border-radius:4px;">
+            <a href="https://lin.ee/7QbkiRX" target="_blank" rel="noopener">
+              <img src="line_banner.png" alt="土橋商店公式LINE">
             </a>
           </div>
         </div>
@@ -419,35 +362,34 @@
 
     <!-- メインカラム -->
     <main class="main">
-
       <div class="main-title">新着商品 <span>4列×6行・24個</span></div>
       <div class="product-grid">
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズTシャツ 半袖</div><div class="product-price">¥980</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスパンツ</div><div class="product-price">¥1,280</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズ靴下 3足セット</div><div class="product-price">¥380</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">エコバッグ 大容量</div><div class="product-price">¥580</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズパーカー</div><div class="product-price">¥1,580</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスブラウス</div><div class="product-price">¥780</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズスニーカー</div><div class="product-price">¥1,080</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用スウェット</div><div class="product-price">¥980</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">肌着セット 3枚組</div><div class="product-price">¥480</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インド綿スカーフ</div><div class="product-price">¥680</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズジャケット</div><div class="product-price">¥2,980</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスニット</div><div class="product-price">¥1,480</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズTシャツ</div><div class="product-price">¥480</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">スポーツソックス</div><div class="product-price">¥280</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ウォータープルーフ傘</div><div class="product-price">¥980</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズサンダル</div><div class="product-price">¥780</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスワンピース</div><div class="product-price">¥1,980</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キャンプ用品セット</div><div class="product-price">¥3,480</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ペットフード 大容量</div><div class="product-price">¥1,280</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッチンタオル 5枚組</div><div class="product-price">¥380</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用帽子</div><div class="product-price">¥680</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディス水着</div><div class="product-price">¥1,280</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズ肌着 3枚組</div><div class="product-price">¥680</div></a>
-        <a href="#" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インドエスニックバッグ</div><div class="product-price">¥1,580</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズTシャツ 半袖</div><div class="product-price">¥980</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスパンツ</div><div class="product-price">¥1,280</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズ靴下 3足セット</div><div class="product-price">¥380</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">エコバッグ 大容量</div><div class="product-price">¥580</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズパーカー</div><div class="product-price">¥1,580</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスブラウス</div><div class="product-price">¥780</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズスニーカー</div><div class="product-price">¥1,080</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用スウェット</div><div class="product-price">¥980</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">肌着セット 3枚組</div><div class="product-price">¥480</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インド綿スカーフ</div><div class="product-price">¥680</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズジャケット</div><div class="product-price">¥2,980</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスニット</div><div class="product-price">¥1,480</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッズTシャツ</div><div class="product-price">¥480</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">スポーツソックス</div><div class="product-price">¥280</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ウォータープルーフ傘</div><div class="product-price">¥980</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズサンダル</div><div class="product-price">¥780</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディスワンピース</div><div class="product-price">¥1,980</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キャンプ用品セット</div><div class="product-price">¥3,480</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">ペットフード 大容量</div><div class="product-price">¥1,280</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">キッチンタオル 5枚組</div><div class="product-price">¥380</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">男女兼用帽子</div><div class="product-price">¥680</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">レディス水着</div><div class="product-price">¥1,280</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">メンズ肌着 3枚組</div><div class="product-price">¥680</div></a>
+        <a href="https://www.chougekiyasu.com/list.php" class="product-item"><div class="product-img">商品画像</div><div class="product-name">インドエスニックバッグ</div><div class="product-price">¥1,580</div></a>
       </div>
-      <a href="#" class="more-btn">すべての商品はこちら →</a>
+      <a href="https://www.chougekiyasu.com/list.php" class="more-btn">すべての商品はこちら →</a>
 
       <!-- 画像3枚 -->
       <div class="image-section">
@@ -461,36 +403,30 @@
       <!-- ご案内 -->
       <div class="main-title">ご案内</div>
       <div class="guide-grid">
-        <a href="#" class="guide-item">ご利用案内</a>
-        <a href="#" class="guide-item">お問い合わせ</a>
-        <a href="#" class="guide-item">よくある Q&amp;A</a>
-        <a href="#" class="guide-item">テレビ出演情報</a>
-        <a href="#" class="guide-item">銀行振込でのご注文</a>
-        <a href="#" class="guide-item">メルマガ配信停止</a>
-        <a href="#" class="guide-item">求人採用</a>
-        <a href="#" class="guide-item">企業理念</a>
-        <a href="#" class="guide-item">土橋社長の素顔</a>
+        <a href="https://www.chougekiyasu.com/howto.php" class="guide-item">ご利用案内</a>
+        <a href="https://www.chougekiyasu.com/contact.php" class="guide-item">お問い合わせ</a>
+        <a href="https://www.chougekiyasu.com/page.php?pId=2" class="guide-item">よくある Q&amp;A</a>
+        <a href="https://www.chougekiyasu.com/page/111" class="guide-item">テレビ出演情報</a>
+        <a href="https://www.chougekiyasu.com/page.php?pId=12" class="guide-item">銀行振込でのご注文</a>
+        <a href="https://www.chougekiyasu.com/page.php?pId=25" class="guide-item">メルマガ配信停止</a>
       </div>
-
     </main>
   </div>
 
   <!-- 5. フッター -->
   <footer class="footer">
     <div class="footer-grid">
-      <div class="footer-item"><a href="#">会社概要</a></div>
-      <div class="footer-item"><a href="#">利用規約</a></div>
-      <div class="footer-item"><a href="#">ご利用案内</a></div>
-      <div class="footer-item"><a href="#">特定商取引法に基づく表記</a></div>
-      <div class="footer-item"><a href="#">個人情報の取り扱いについて</a></div>
-      <div class="footer-item"><a href="#">お問い合わせ</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/corporate.php">会社概要</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/kiyaku.php">利用規約</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/howto.php">ご利用案内</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/law.php">特定商取引法に基づく表記</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/privacy.php">個人情報の取り扱いについて</a></div>
+      <div class="footer-item"><a href="https://www.chougekiyasu.com/contact.php">お問い合わせ</a></div>
     </div>
     <p class="footer-copy">&copy; 2025 超激安.com All Rights Reserved.</p>
   </footer>
 
 </div>
-
-<div class="preview-badge">🖥️ PC版プレビュー</div>
 
 <script>
   // お知らせアコーディオン
@@ -511,14 +447,8 @@
         var subList = trigger.nextElementSibling;
         if (!subList) return;
         var isOpen = subList.classList.contains('is-open');
-        // 他をすべて閉じる
-        document.querySelectorAll('.sb-sub-list.is-open').forEach(function (el) {
-          el.classList.remove('is-open');
-        });
-        document.querySelectorAll('.sb-cat-trigger.is-open').forEach(function (el) {
-          el.classList.remove('is-open');
-        });
-        // 同じものは開閉トグル
+        document.querySelectorAll('.sb-sub-list.is-open').forEach(function (el) { el.classList.remove('is-open'); });
+        document.querySelectorAll('.sb-cat-trigger.is-open').forEach(function (el) { el.classList.remove('is-open'); });
         if (!isOpen) {
           subList.classList.add('is-open');
           trigger.classList.add('is-open');
